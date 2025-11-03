@@ -11,7 +11,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v3
 
     - name: Install pandoc and LaTeX
       run: sudo apt-get update && sudo apt-get install -y pandoc texlive
@@ -21,7 +21,7 @@ jobs:
         pandoc de_course_2025/*.md -o course_material.pdf
 
     - name: Upload PDF artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: course-pdf
         path: course_material.pdf
