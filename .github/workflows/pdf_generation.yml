@@ -18,7 +18,8 @@ jobs:
 
     - name: Convert markdown files to single PDF
       run: |
-        pandoc de_course_2025/*.md -o course_material.pdf
+        pandoc de_course_2025/*.md -o course_material.pdf --pdf-engine=xelatex -V mainfont="DejaVu Serif"
+
 
     - name: Upload PDF artifact
       uses: actions/upload-artifact@v4
