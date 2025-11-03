@@ -1,28 +1,12 @@
-name: Generate PDF from markdown folder
-
-on:
-  push:
-    branches:
-      - main
-
 jobs:
-  build-pdf:
+  build:
     runs-on: ubuntu-latest
-
+    container:
+      image: ghcr.io/texlive/texlive:latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Install pandoc and LaTeX
-      run: sudo apt-get update && sudo apt-get install -y pandoc texlive
-
-    - name: Convert markdown files to single PDF
-      run: |
-        pandoc de_course_2025/*.md -o course_material.pdf --pdf-engine=xelatex -V mainfont="DejaVu Serif"
-
-
-    - name: Upload PDF artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: course-pdf
-        path: course_material.pdf
+      - uses: actions/checkout@v3
+      - run: pandoc de_course_2025/*.md -o course_material.pdf --pdf-engine=xelatex -V mainfont="DejaVu Serif"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: course-pdf
+          path: course_material.pdf
