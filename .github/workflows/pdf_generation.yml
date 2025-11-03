@@ -29,7 +29,7 @@ jobs:
         uses: docker://pandoc/latex:2.9
         with:
           args: --output=pdfs/full_course.pdf ${{ steps.files_list.outputs.files }}
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: full-course-pdf
           path: pdfs
