@@ -1,18 +1,19 @@
-name: Create PDF
+name: Create Combined PDF
 on:
   push:
     paths:
       - 'de_course_2025/**'
+
 jobs:
-  create-pdf:
+  create-combined-pdf:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Create PDF
+      - name: Create Combined PDF
         uses: docker://pandoc/latex:2.9
         with:
-          args: --output=pdfs/course.pdf de_course_2025/data_engineering_full_course.md
+          args: --output=pdfs/full_course.pdf $(ls de_course_2025/*.md | sort)
       - uses: actions/upload-artifact@v3
         with:
-          name: course-pdfs
+          name: full-course-pdf
           path: pdfs
