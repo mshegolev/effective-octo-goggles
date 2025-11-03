@@ -20,11 +20,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Create file list
+        id: files_list
+        run: |
+          mkdir -p pdfs
+          echo "files=$(printf '%s\n' de_course_2025/*.md | sort)" >> $GITHUB_OUTPUT
       - name: Create Combined PDF
         uses: docker://pandoc/latex:2.9
         with:
-          args: --output=pdfs/full_course.pdf $(ls de_course_2025/*.md | sort)
-      - uses: actions/upload-artifact@v4
+          args: --output=pdfs/full_course.pdf ${{ steps.files_list.outputs.files }}
+      - uses: actions/upload-artifact@v3
         with:
           name: full-course-pdf
           path: pdfs
