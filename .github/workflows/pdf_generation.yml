@@ -1,4 +1,4 @@
-name: Create Combined PDF
+name: Create Combined PDF !
 on:
   push:
     paths:
